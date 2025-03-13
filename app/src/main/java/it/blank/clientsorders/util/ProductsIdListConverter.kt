@@ -5,12 +5,12 @@ import androidx.room.TypeConverter
 class ProductsIdListConverter {
 
     @TypeConverter
-    fun dataFromProductsIdList(productsId: List<Int>): String{
+    fun dataFromProductsIdList(productsId: List<Int>): String {
         return productsId.joinToString()
     }
 
     @TypeConverter
-    fun productsIdListFromData(data: String): List<Int>{
+    fun productsIdListFromData(data: String): List<Int> {
         return data.split(",").map { it.toInt() }
     }
 }

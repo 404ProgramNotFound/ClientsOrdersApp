@@ -11,13 +11,13 @@ import java.util.UUID
 data class Order(
 
     @PrimaryKey
-    val id : UUID,
+    val id: UUID,
 
     @ColumnInfo(name = "products")
-    val productsId : List<Int>,
+    val productsId: List<Int>,
 
     @ColumnInfo(name = "customer")
-    val customer : String,
+    val customer: String,
 
     @ColumnInfo(name = "entryDate")
     val entryDate: Date = Date.from(Instant.now())
