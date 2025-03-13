@@ -14,7 +14,7 @@ data class Order(
     val id : UUID,
 
     @ColumnInfo(name = "products")
-    val products : List<Product>,
+    val productsId : List<Int>,
 
     @ColumnInfo(name = "customer")
     val customer : String,
