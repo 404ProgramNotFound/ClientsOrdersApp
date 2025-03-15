@@ -13,6 +13,9 @@ data class Order(
     @PrimaryKey
     val id: UUID,
 
+    @ColumnInfo(name = "title")
+    val title: String,
+
     @ColumnInfo(name = "products")
     val productsId: List<Int>,
 
