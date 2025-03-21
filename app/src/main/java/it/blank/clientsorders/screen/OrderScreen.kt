@@ -10,8 +10,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -26,14 +26,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import it.blank.clientsorders.components.OrderCard
 
 @Preview
 @Composable
-fun MainScreen(modifier: Modifier = Modifier) {
-    val ordersList = remember {
-        mutableStateListOf<String>()
-    }
+fun OrderScreen(modifier: Modifier = Modifier, viewModel: OrderViewModel = viewModel()) {
+    val orders = viewModel.orders
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = MaterialTheme.colorScheme.background,
@@ -57,12 +56,12 @@ fun MainScreen(modifier: Modifier = Modifier) {
             ) {
                 NavigationBarItem(
                     selected = false,
-                    onClick = { ordersList.add("") },
+                    onClick = { viewModel.addOrder() },
                     icon = { Icon(Icons.Default.Add, contentDescription = "add") })
                 NavigationBarItem(
                     selected = false,
-                    onClick = { ordersList.add("") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "add") })
+                    onClick = { if(orders.isNotEmpty()) viewModel.removeOrder() },
+                    icon = { Icon(Icons.Default.Clear, contentDescription = "remove") })
             }
         }
     ) { innerPadding ->
@@ -72,7 +71,7 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
         ) {
-            items(items = ordersList) { order ->
+            items(items = orders) { order ->
                 OrderCard()
             }
 
