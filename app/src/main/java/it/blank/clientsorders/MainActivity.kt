@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import it.blank.clientsorders.screen.MainScreen
+import it.blank.clientsorders.screen.OrderScreen
 import it.blank.clientsorders.ui.theme.ClientsOrdersTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun App(modifier: Modifier = Modifier) {
-    MainScreen()
+    OrderScreen()
 
 }
 
