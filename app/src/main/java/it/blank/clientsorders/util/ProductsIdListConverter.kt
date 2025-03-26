@@ -6,7 +6,7 @@ class ProductsIdListConverter {
 
     @TypeConverter
     fun dataFromProductsIdList(productsId: List<Int>): String {
-        return productsId.joinToString()
+        return productsId.joinToString(separator = ",")
     }
 
     @TypeConverter

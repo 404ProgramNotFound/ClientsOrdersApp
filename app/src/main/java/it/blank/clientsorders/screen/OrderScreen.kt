@@ -2,6 +2,7 @@
 
 package it.blank.clientsorders.screen
 
+import androidx.collection.intListOf
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,19 +21,20 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import it.blank.clientsorders.components.OrderCard
+import it.blank.clientsorders.model.Order
 
-@Preview
+
 @Composable
-fun OrderScreen(modifier: Modifier = Modifier) {
-    val ordersList = remember {
-        mutableStateListOf<String>()
-    }
+fun OrderScreen(
+    modifier: Modifier = Modifier,
+    orders: List<Order>,
+    onAddOrder: (Order) -> Unit,
+    onRemoveOrder: (Order) -> Unit
+) {
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = MaterialTheme.colorScheme.background,
@@ -54,25 +56,26 @@ fun OrderScreen(modifier: Modifier = Modifier) {
                 containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                 contentColor = MaterialTheme.colorScheme.onTertiaryContainer
             ) {
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { ordersList.add("") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "add") })
-                NavigationBarItem(
-                    selected = false,
-                    onClick = { ordersList.add("") },
-                    icon = { Icon(Icons.Default.Add, contentDescription = "add") })
+                NavigationBarItem(selected = false, onClick = {
+                    onAddOrder(
+                        Order(
+                            title = "Test", productsId = listOf<Int>(1,2,3), customer = "marco"
+                        )
+                    )
+                }, icon = { Icon(Icons.Default.Add, contentDescription = "add") })
+                NavigationBarItem(selected = false, onClick = {
+
+                }, icon = { Icon(Icons.Default.Add, contentDescription = "add") })
             }
-        }
-    ) { innerPadding ->
+        }) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth(),
             contentPadding = PaddingValues(16.dp)
         ) {
-            items(items = ordersList) { order ->
-                OrderCard()
+            items(items = orders) { order ->
+                OrderCard(order)
             }
 
         }
